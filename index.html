@@ -331,11 +331,31 @@
     var mode = "practice";
     var earnedScore = 0; var totalPossibleScore = 0; var correctCount = 0; var newMistakesCount = 0;
 
+// === 初始化：智能读取 ===
     window.onload = function() {
-        var savedData = localStorage.getItem('exam_db_mobile_fixed');
-        if (savedData) { try { database = JSON.parse(savedData); } catch(e) { database = { mistakes: [] }; } }
+        // 1. 优先尝试读取文件夹下的 .js 文件数据
+        if (window.localData) {
+            database = window.localData;
+            // 顺便把这份数据存入缓存，防止刷新丢失
+            saveData(); 
+            console.log("已加载文件夹中的题库文件");
+        } 
+        // 2. 如果文件夹里没文件，或者读取失败，则读取浏览器缓存
+        else {
+            var savedData = localStorage.getItem('exam_db_mobile_fixed');
+            if (savedData) {
+                try { 
+                    database = JSON.parse(savedData); 
+                } catch(e) { 
+                    database = { mistakes: [] }; 
+                }
+            }
+        }
+
+        // 3. 数据完整性检查
         if(!database.mistakes) database.mistakes = [];
         if(Object.keys(database).filter(function(k){ return k!=='mistakes' }).length === 0) database["1"] = [];
+        
         updateMistakeCount();
     }
 
@@ -595,4 +615,5 @@
     function shuffle(a) { for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var tmp=a[i]; a[i]=a[j]; a[j]=tmp; } return a; }
 </script>
 </body>
+
 </html>
