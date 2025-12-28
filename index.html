@@ -1412,7 +1412,7 @@
         document.getElementById('home-username').innerText = globalData.currentUser;
 
         // 3. 读取 JSON (注意：现在读进来的题库只会存到当前子账号里)
-        fetch('./tiku.json') 
+        fetch('./mayuantiku.json') 
             .then(res => {
                 if(!res.ok) throw new Error("404");
                 return res.json();
@@ -2306,4 +2306,5 @@ ${q.options ? q.options.join('\n') : (q.type==='判断题'?'A. 对\nB. 错':'无
     }
 </script>
 </body>
+
 </html>
