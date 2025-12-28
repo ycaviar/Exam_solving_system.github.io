@@ -1099,7 +1099,7 @@
 
         // 2. 【关键新增】主动去请求 GitHub 上的 JSON 文件
         // 请把下面的 'tiku.json' 改成你上传到 GitHub 的那个文件名！
-        fetch('./马原刷题题库备份.json') 
+        fetch('./mayuantiku.json') 
             .then(response => {
                 if (!response.ok) {
                     throw new Error("HTTP error " + response.status);
@@ -1674,3 +1674,4 @@
 </body>
 
 </html>
+
